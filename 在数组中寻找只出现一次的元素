@@ -1,0 +1,40 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+int main()
+{
+	int arr[] = { 1,2,3,4,5,4,3,2,1 };
+//第一种--暴力求解	
+	/*int a = 0;	
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	for (a = 0;a < sz;a++)
+	{
+		int count = 0;
+		int b = 0;	
+		for (b = 0;b < sz;b++)
+		{
+			if (arr[a] == arr[b])
+			{
+				count++;
+			}
+		}
+		if (count == 1)
+		{
+			printf("%d", arr[a]);
+			break;
+		}
+	}	*/
+
+
+//第二种
+	//^异或满足交换定律，即3^5^3=5
+	//a^a=0;     0^a=a;
+	int a = 0;
+	int b = 0;
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	for (a = 0;a < sz;a++)
+	{		
+		b = b ^ arr[a];
+	}
+	printf("%d", b);
+	return 0;
+}
