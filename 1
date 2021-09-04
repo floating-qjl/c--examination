@@ -1,0 +1,19 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+int main()
+{
+	int a = 3;
+	int b = 5;
+//第一种
+	/*a = a + b;
+	  b = a - b;     --b变成了a
+	  a = a - b;*/
+//缺点：溢出不可取
+
+//第二种
+	/*a = a ^ b;     --011^101=110
+	  b = a ^ b;     --110^101=011
+	  a = a ^ b;     --110^011=101  */   
+//缺点：可读性差，效率低
+	return 0;
+}
