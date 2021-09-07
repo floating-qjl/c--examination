@@ -1,0 +1,15 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+int main()
+{
+	int i = 0, a = 0, b = 2, c = 3, d = 4,k = 0;
+	//i = a++ && ++b && d++;
+	//此时先使用a，a=0为假，不再计算后面的式子，最后++，a变成1
+	//答案为 1 2 3 4
+	k = a++ || ++b || d++;
+	//此时先使用a，a=0为假，继续计算，b经过++变成3为真，不在计算后面的式子
+	//答案为 1 3 3 4
+	printf("a = %d\nb = %d\nc = %d\nd = %d\n", a, b, c, d);
+	printf("%d\n%d\n",i , k);
+	return 0;
+}
