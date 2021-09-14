@@ -1,0 +1,22 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <math.h>
+int check(int a)
+{
+	char* p = (char*)&a;
+	//返回1为小端，返回0为大端
+	return *p;
+	//return *(char*)&a;
+}
+int main()
+{
+	//大端储存模式：数据的低位保存在内存的高地址中，而数据的高位，保存在内存的低地址中；
+	//小端储存模式：数据的低位保存在内存的低地址中，而数据的高位，保存在内存的高地址中；
+	int a = 1;
+	int ret = check(a);
+	if (ret == 1)
+		printf("小端");
+	else
+		printf("大端");
+	return 0;
+}
