@@ -1,0 +1,56 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+struct test
+{
+	int Num;
+	char* pcname;
+	short sdata;
+	char cha[2];
+	short sba[4];
+}*p;//结构体指针
+
+//假设p值为0x100000
+//已知，结构体test类型的变量大小是20个字节
+
+int main()
+{
+	//第一题
+
+	int a[5] = { 1,2,3,4,5 };
+	int* ptr = (int*)(&a + 1);
+	printf("%d,%d", *(a + 1), *(ptr - 1));
+	//                2           5
+	printf("\n");
+
+
+
+	//第二题
+
+	p = (struct test*)0x100000;
+	printf("%p\n", p + 0x1);//0x100014
+	printf("%p\n", (unsigned long)p + 0x1);//0x100001
+	printf("%p\n", (unsigned int*)p + 0x1);//0x100004
+	//都加了1，但具体加了多少根据类型判断
+	//因为地址也是十六进制的，所以整数可以直接转化成十六进制打印
+	printf("\n");
+
+
+
+	//第三题
+
+	int d[4] = { 1,2,3,4 };
+	int* ptr1 = (int*)(&d + 1);
+	//此处地址指向数字4的后一位
+	int* ptr2 = (int*)((int)d + 1);
+	//d为数组名，本意为首元素地址，转化为整数后加一再转化为地址，就相当于地址加了一
+	//此处为小端存储模式，数字存储大致为 01 00 00 00 | 02 00 00 00 | 03 00 00 00 | 04 00 00 00
+	//此时 d 指向 01 位置的地址，而 ptr2 指向 01后的00的地址，又因为int*为四个字节
+	//所以向后读取4个字节并倒着读出，即为 02 00 00 00
+	printf("%x,%x", ptr1[-1], *ptr2);
+	//ptr1[-1] 相当于 *(ptr1-1)即为数字4，转化为16进制数 0x4
+	//*ptr2 转化为十六进制数则为 0x2000000
+	
+	printf("\n");
+
+	return 0;
+}
