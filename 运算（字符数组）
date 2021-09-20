@@ -1,0 +1,69 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+int main()
+{
+
+	char b[] = { 'a','b','c','d','e','f' };
+
+	printf("%d\n", sizeof(b));//6
+	printf("%d\n", sizeof(b+0));//4 -- 错误 -- 首元素地址，即为指针大小
+	printf("%d\n", sizeof(*b));//1 -- b为首元素地址，*b为首元素
+	printf("%d\n", sizeof(b[1]));//1
+	printf("%d\n", sizeof(&b));//4
+	printf("%d\n", sizeof(&b+1));//4
+	printf("%d\n", sizeof(&b[0]+1));//4 -- 错误 --第二个元素的地址
+	printf("\n");
+
+	printf("%d\n", strlen(b));//随机值
+	printf("%d\n", strlen(b+0));//随机值
+	//printf("%d\n", strlen(*b));//非法访问 -- 错误 -- *b为‘a’，ascll值为97被strlen当作非法地址
+	//printf("%d\n", strlen(b[1]));//非法访问
+	printf("%d\n", strlen(&b));//随机值 -- 整个数组地址依然从首元素地址开始
+	printf("%d\n", strlen(&b+1));//随机值 -- 与&b差值为6
+	printf("%d\n", strlen(&b[0]+1));//随机值 -- 第二个元素地址，比&b少1
+	//strlen为重点
+	printf("\n");
+
+	char c[] = "abcdef";
+
+	printf("%d\n", sizeof(c));//7
+	printf("%d\n", sizeof(c+0));//4 -- 错误 -- 计算的是首元素地址的大小
+	printf("%d\n", sizeof(*c));//1
+	printf("%d\n", sizeof(c[1]));//1
+	printf("%d\n", sizeof(&c));//4
+	printf("%d\n", sizeof(&c+1));//4
+	printf("%d\n", sizeof(&c[0]+1));//4
+	printf("\n");
+
+
+	printf("%d\n", strlen(c));//6
+	printf("%d\n", strlen(c + 0));//6
+	//printf("%d\n", strlen(*c));//非法访问
+	//printf("%d\n", strlen(c[1]));//非法访问
+	printf("%d\n", strlen(&c));//6 
+	//& c的类型为char(*)[7], 与strlen要求的const char* 不同，会出现间接级别不同
+	printf("%d\n", strlen(&c + 1));//随机值
+	printf("%d\n", strlen(&c[0] + 1));//5
+	//strlen指向的是地址
+	printf("\n");
+
+	char* p = "abcdef";
+	printf("%d\n", sizeof(p));//4    -    计算指针变量的大小    
+	printf("%d\n", sizeof(p + 0));//4   -   得到的是字符b的地址
+	printf("%d\n", sizeof(*p));//1  -  字符串第一个字符‘a’的大小
+	printf("%d\n", sizeof(p[0]));//1  -  p[0] == * (p + 0) == 'a'  类似于数组一样，但又有所不同
+	printf("%d\n", sizeof(&p));//4
+	printf("%d\n", sizeof(&p + 1));//4
+	printf("%d\n", sizeof(&p[0] + 1));//4
+	printf("\n");
+
+	printf("%d\n", strlen(p));//6
+	printf("%d\n", strlen(p+1));//5
+	//printf("%d\n", strlen(*p));//非法访问
+	//printf("%d\n", strlen(p[0]));//非法访问
+	printf("%d\n", strlen(&p));//随机值  -  从p的地址出发不能确定到达\0的过程有什么
+	printf("%d\n", strlen(&p+1));//随机值
+	printf("%d\n", strlen(&p[0]+1));//5
+	printf("\n");
+	return 0;
+}
