@@ -1,0 +1,48 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+int main()
+{
+	//第一题
+
+
+	int aa[2][5] = { 1,2,3,4,5,6,7,8,9,10 };
+	int* ptr1 = (int*)(&aa + 1);
+	//&aa为整个数组地址，向后加了一个单位，得到了10后面的一位地址，本质为数组指针
+	int* ptr2 = (int*)(*(aa + 1));
+	//*（aa）+1 相当于aa[1]为第二行数组名，表示 6 ，本质为整形指针
+ 	printf("%d,%d", *(ptr1 - 1), *(ptr2 - 1));
+	//答案为             10            5 
+
+	printf("\n");
+
+	//第二题
+
+
+	char* a[] = { "work","at","alibaba" };
+	//每个指针存放的都是每个常量字符串的首个字符的地址
+	char** pa = a;
+	//*pa表示他是个指针，指向的类型为char*
+	pa++;
+	//++后跳过的多少要根据pa的类型来判断
+	//即跳过第一个char*，指向了第二个char*所对应的常量字符串的首元素的地址，即为a
+	printf("%s\n", *pa);
+
+	printf("\n");
+
+	//第三题
+
+
+	char* c[] = { "ENTER","NEW","POINT","FIRST" };
+	char** cp[] = { c + 3,c + 2,c + 1,c };
+	char*** cpp = cp;
+	printf("%s\n", **++cpp);
+	//POINT -- 此时cpp地址指向c+2
+	printf("%s\n", *--*++cpp + 3);
+	//ER -- 先进行++，cpp指向c+1，*后指向了N的地址，--后指向了E的地址，再此*并+3后得到答案
+	printf("%s\n", *cpp[-2] + 3);
+	//ST -- 此时cpp指向了c+1，*（cpp-2）后得到了c+3所指向的地址，经过*和+3后得到答案
+	//但是此处cpp并未改变，得到的地址不过是cpp-2所指向的地址
+	printf("%s\n", cpp[-1][-1] + 1);
+	//EW -- 此时cpp指向了c+1，经过*（*（cpp-1）-1）+1后指向了NEW中E的地址
+	return 0;
+}
