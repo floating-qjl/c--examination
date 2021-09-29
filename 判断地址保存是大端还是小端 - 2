@@ -1,0 +1,26 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+int check()
+{
+	union un
+	{
+		char a;
+		//从低地址开始，占用一个字节（共用）
+		int b;
+	}x;
+	x.b = 1;
+	return x.a;
+	//返回1，表示小端
+	//返回0，表示大端
+}
+int main()
+{
+	int ret = check();
+	if (ret == 1)
+	{
+		printf("小端\n");
+	}
+	else
+		printf("大端\n");
+	return 0;
+}
