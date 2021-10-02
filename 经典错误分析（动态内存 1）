@@ -1,0 +1,30 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+void get(char* p)
+//拷贝一份临时变量，即 p = NULL
+{
+	p = (char*)malloc(100);
+	// p 为开辟内存空间的首地址，并未放到 str 中
+}
+void test()
+{
+	char* str = NULL;
+	get(str);
+	strcpy(str, "hello world");
+	//空指针并不是有效地址，不拥有一定的 内存空间
+	printf(str);
+	//常量字符串可以这么打印
+}
+int main()
+{
+	test();
+	return 0;
+}
+//错误：1.运行代码会出现崩溃的现象
+//      2.程序存在内存泄漏的问题
+
+//str 以值传递的形式给 p
+//p 是 get 函数的形参，只在函数内部有效 
+//等 get 函数返回之后，动态开辟内存尚未释放
+//且该内存空间的地址无法找到（ p 已被销毁），所以内存会泄露
