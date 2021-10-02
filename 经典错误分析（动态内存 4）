@@ -1,0 +1,43 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+//篡改动态内存区的内容
+void test()
+{
+	char* str = (char*)malloc(100);
+	strcpy(str, "hello");
+	free(str);
+	//释放 str 指向的空间后，并不会把str指向 NULL
+	//此时 str 成为了野指针
+	if (str != NULL)
+	{
+		strcpy(str, "world");
+		//内存空间已经释放，但是 str 依旧指向该空间地址，这里的 world 覆盖了 hello 属于非法访问
+		printf(str);
+	}
+}
+int main()
+{
+	test();
+	return 0;
+}
+
+//更改后
+
+void test()
+{
+	char* str = (char*)malloc(100);
+	strcpy(str, "hello");
+	free(str);
+	str = NULL;
+	if (str != NULL)
+	{
+		strcpy(str, "world");		
+		printf(str);
+	}
+}
+int main()
+{
+	test();
+	return 0;
+}
