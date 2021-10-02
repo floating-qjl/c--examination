@@ -1,0 +1,26 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+//返回栈空间地址的问题
+
+char* get()
+{
+	char p[] = "hello world";
+	return p;
+	//p 为局部数组，将地址返回后 str接收到了该地址，但当出了函数之后，该空间还给了操作系统
+	//因此 str 指向的空间已经毫无意义
+}
+void test()
+{
+	char* str = NULL;
+	str = get();
+	//非法访问，并且此指针没有空间，无法改变其指向的值
+	printf(str);
+	//打印 为随机值
+}
+int main()
+{
+	test();
+	//用 static 存放于静态区可以解决问题
+	return 0;
+}
