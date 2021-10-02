@@ -1,0 +1,21 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+void get(char** p, int num)
+{
+	*p = (char*)malloc(num);
+}
+void test()
+{
+	char* str = NULL;
+	get(&str, 100);
+	strcpy(str, "hello");
+	printf(str);
+	//内存未释放
+}
+int main()
+{
+	test();
+	return 0;
+
+}
