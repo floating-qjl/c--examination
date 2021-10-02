@@ -11,6 +11,7 @@ void test()
 {
 	char* str = NULL;
 	get(str);
+	//此处可以改成传地址，便可解决 内存泄漏 和 无空间进行拷贝 的问题
 	strcpy(str, "hello world");
 	//空指针并不是有效地址，不拥有一定的 内存空间
 	printf(str);
