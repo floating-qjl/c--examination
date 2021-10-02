@@ -29,3 +29,48 @@ int main()
 //p 是 get 函数的形参，只在函数内部有效 
 //等 get 函数返回之后，动态开辟内存尚未释放
 //且该内存空间的地址无法找到（ p 已被销毁），所以内存会泄露
+
+
+
+//改正 1
+//
+//void get(char** p)
+//{
+//	*p = (char*)malloc(100);
+//
+//}
+//void test()
+//{
+//	char* str = NULL;
+//	get(&str);	
+//	strcpy(str, "hello world");	
+//	printf(str);
+//	free(str);
+//	str = NULL;
+//}
+//int main()
+//{
+//	test();
+//	return 0;
+//}
+//
+////改正 2
+//char* get(char* p)
+//{
+//	p = (char*)malloc(100);
+//	return p;
+//}
+//void test()
+//{
+//	char* str = NULL;
+//	str = get(str);
+//	strcpy(str, "hello world");
+//	printf(str);
+//	free(str);
+//	str = NULL;
+//}
+//int main()
+//{
+//	test();
+//	return 0;
+//}
