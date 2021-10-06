@@ -1,0 +1,31 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+struct S
+{
+	int n;
+	float b;
+	char arr[10];
+};
+int main()
+{
+	//scanf/printf   是针对标准输入流/标准输出流的 格式化输入/输出语句
+	//fscanf/fprintf 是针对所有输入流/所有输出流的 格式化输入/输出语句
+	//sscanf         是从字符串中读取格式化的数据
+	//sprintf        是把格式化的数据输出成（储存到）字符串
+
+
+	struct S s = { 100,3.14f,"bit" };
+	struct S tmp = { 0 };
+	char buf[1024] = { 0 };
+	sprintf(buf, "%d %f %s", s.n, s.b, s.arr);
+	//返回类型为 int，参数类型为 char*，const char*，[,argument]...
+	//将格式化的数据转化成字符串并存储在 buf 数组中
+	printf("%s\n", buf);
+
+	sscanf(buf, "%d %f %s", &(tmp.n), &(tmp.b), tmp.arr);
+	//返回类型为 int，参数类型为 char*，const char*，[,argument]...
+	//从 buf 数组中读取格式化的数据还原到 tmp 中
+	printf("%d %f %s", tmp.n, tmp.b, tmp.arr);
+	
+	return 0;
+}
