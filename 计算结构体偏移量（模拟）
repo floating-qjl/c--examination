@@ -1,0 +1,19 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+#include <stddef.h>
+struct S
+{
+	char c1;
+	int a;
+	char c2;
+};
+#define Offsetof(name1, name2)  (int)&(((name1*)0)->name2)
+//由 0 地址指向成员，再取地址并强转得到了 地址-0地址 的值，得到偏移量
+int main()
+{
+	printf("%d\n", Offsetof(struct S, c1));
+	printf("%d\n", Offsetof(struct S, a));
+	printf("%d\n", Offsetof(struct S, c2));
+	return 0;
+}
